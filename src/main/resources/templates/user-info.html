@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>BUYSELL</title>
+</head>
+<body>
+
+<h1>BUYSELL</h1><hr>
+<h3 th:text="'Information about customer ' + ${user.name}"></h3>
+<b>Phone Number: </b> <span th:text="${user.phoneNumber}"></span><br>
+<b>Email: </b> <span th:text="${user.email}"></span><br>
+
+
+<h4>Products of User <span th:text="${user.name}"></span></h4>
+
+<div th:each="product : ${products}">
+    <p>
+        <b th:text="${product.title}"></b>
+        <span th:text="${product.price}"></span> |
+        <a th:href="@{/product/{id}(id=${product.id})}">Details...</a>
+    </p>
+</div>
+<div th:if="${#lists.isEmpty(products)}">
+    <h3>No Products</h3>
+</div>
+
+
+
+<div th:if="${errorMessage}">
+    <h2 style="color: red" th:text="${errorMessage}"></h2>
+</div>
+
+</body>
+</html>
+<!--
+<h1>BUYSELL</h1><hr>
+<h3>Information about customer ${user.name}</h3>
+<b>Phone Number: </b> ${user.phoneNumber}<br>
+<b>Phone Number: </b> ${user.phoneNumber}<br>
+-->
+<!--
+<form action="/registration" method="post">
+  User Name: <input type="text" name="name"><br><br>
+  Email: <input type="email" name="email"><br><br>
+  PhoneNumber: <input type="text" name="PhoneNumber"><br><br>
+  Password: <input type="password" name="password"><br><br>
+  <input type="hidden" name="_csrf" value="${_csrf.token}">
+  <input type="submit" value="Enter"/>
+</form>
+<#if errorMessage??>
+  <h2 style="color: red">${errorMessage}</h2>
+</#if>>
+-->
+<!--
+<#list products as product>
+<div>
+<p><b>${product.title}</b> ${product.price} | <a href="/product/${product.id}">Details...</a></p>
+</div>
+<#else>
+<h3>No Products</h3>
+</#list>
+-->
+

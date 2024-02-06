@@ -1,0 +1,117 @@
+<!doctype html>
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"> -->
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BUYSELL</title>
+</head>
+<body>
+<h1>BUYSELL</h1><hr>
+<h3>Admin Pannel</h3>
+
+
+
+<table border="1">
+    <tr>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Active</th>
+        <th>Roles</th>
+        <th>Ban</th>
+        <th>Edit</th>
+        <th>Detail Info</th>
+    </tr>
+    <th:block th:if="${not #lists.isEmpty(users)}">
+        <th:block th:each="user : ${users}">
+            <tr>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.phoneNumber}"></td>
+                <td th:text="${user.active ? 'true' : 'false'}"></td>
+                <td>
+                    <th:block th:each="role : ${user.roles}">
+                        <span th:text="${role}"></span><br/>
+                    </th:block>
+                </td>
+                <td>
+                    <form th:action="@{/admin/user/ban/{id}(id=${user.id})}" method="post">
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                        <input type="submit" value="Ban">
+                    </form>
+                </td>
+                <td><a th:href="@{/admin/user/edit/{id}(id=${user.id})}">Edit</a></td>
+                <td><a th:href="@{/user/{id}(id=${user.id})}">Detail Info</a></td>
+            </tr>
+        </th:block>
+    </th:block>
+    <th:block th:unless="${not #lists.isEmpty(users)}">
+        <tr>
+            <td colspan="7"><h3>No Users</h3></td>
+        </tr>
+    </th:block>
+</table>
+
+
+</body>
+</html>
+<!--
+<table border="1">
+<tr>
+    <th>Email</th>
+    <th>Tell Number</th>
+    <th>Active</th>
+    <th>Roll</th>
+    <th>Bann</th>
+    <th>Detale Info</th>
+</tr>
+<#list users as user>
+    <tr>
+    <th>${user.email}</th>
+    <th>${user.phoneNumber}</th>
+    <th>${user.active}>true<#else>false</#if></th>
+    <th><#list user.roles as role><${role}<#list></th>
+    <th>
+        <form action="/admin/user/ban/${user.id}" method="post">
+            <input type="hidden" name="_csrf" value="${_csrf.token}">
+            <input type="submit" value="Ban">
+        </form>
+    </th>
+    <th><a href="/admin/user/edit/${user.id}">Edit</a></th>
+        <th><a href="/user/${user.id}">Detale Info</a></th>
+</tr>
+    <#else>
+    <h3>No Users</h3>
+</#list>
+</table>
+-->
+
+
+<!--
+
+
+
+<#list products as product>
+<div>
+    <p><b>${product.title}</b> ${product.price} | <a href="/product/${product.id}">Details...</a></p>
+</div>
+</#list>
+
+
+<div th:each="product : ${products}">
+    <p><b th:text="${product.title}"></b> <span th:text="${product.price}"></span> | <a th:href="@{/product/{id}(id=${product.id})}">Details...</a></p>
+</div>
+
+<hr>
+<h3>Make x</h3>
+<form action="/product/create" method="post">
+    Name of Information: <input type="text" name="title"/><br><br>
+    text of Information: <input type="text" name="description"/><br><br>
+    Price: <input type="number" name="price"/><br><br>
+    City: <input type="text" name="city"/><br><br>
+    Name: <input type="text" name="author"/><br><br>
+    <input type="submit" value="Add x"/>
+</form>
+-->

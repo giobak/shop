@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>BUYSELL</title>
+</head>
+<body>
+<h1>BUYSELL</h1><hr>
+<h3>User Edit <span th:text="${user.name}"></span></h3>
+<form th:action="@{/admin/user/edit}" method="post">
+    <th:block th:each="role : ${roles}">
+        <div>
+            <label>
+                <input type="checkbox" th:name="${role}" th:checked="${#lists.contains(user.roles, role)}" />
+
+                <span th:text="${role}"></span>
+            </label>
+        </div>
+    </th:block>
+    <input type="hidden" th:value="${user.id}" name="userId" />
+    <input type="hidden" th:value="${_csrf.token}" name="_csrf" />
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>
+
+
+
+<!--
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>BUYSELL</title>
+</head>
+<body>
+<h1>BUYSELL</h1><hr>
+<h3>User Edit ${user.name}</h3>
+<form action="/admin/user/edit" method="post">
+  <#list roles as role>
+      <div>
+        <label><input type="checkbox" name="${role}" ${user.roles?seq_contains(role)?string("checked", "")}>${role}</label>
+      </div>
+  </#list>
+<input type="hidden" value="${user.id}" name="userId">
+<input type="hidden" value="${_csrf.token}" name="_csrf">
+<button type="submit">Save</button>
+</form>
+
+</body>
+</html>
+
+-->
